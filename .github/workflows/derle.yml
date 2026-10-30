@@ -1,0 +1,61 @@
+name: Derle
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: "17"}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Gizli dosyaları oluştur
+        env: {MGM_DOGRULAMA_ANAHTARI: "${{ secrets.MGM_DOGRULAMA_ANAHTARI }}"}
+        run: |
+          if [ -z "$MGM_DOGRULAMA_ANAHTARI" ]; then echo "::error::MGM_DOGRULAMA_ANAHTARI sırrı tanımlı değil"; exit 1; fi
+          python araclar/gizli_dosyalari_olustur.py
+      - name: APK derle
+        run: sh android/derle.sh
+      - uses: actions/upload-artifact@v4
+        with: {name: MGM_BMS_APK, path: android/out/*.apk}
+
+  exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Gizli dosyaları oluştur
+        env: {MGM_DOGRULAMA_ANAHTARI: "${{ secrets.MGM_DOGRULAMA_ANAHTARI }}"}
+        shell: bash
+        run: |
+          if [ -z "$MGM_DOGRULAMA_ANAHTARI" ]; then echo "::error::MGM_DOGRULAMA_ANAHTARI sırrı tanımlı değil"; exit 1; fi
+          python araclar/gizli_dosyalari_olustur.py
+      - name: EXE derle (PyInstaller)
+        working-directory: masaustu
+        run: |
+          python -m pip install -r requirements.txt pyinstaller
+          python -m PyInstaller --noconfirm --onefile --windowed --name MGM_BMS --add-data "ui;ui" --hidden-import lisans_anahtar --collect-submodules bleak --collect-data webview mgm_bms.py
+      - uses: actions/upload-artifact@v4
+        with: {name: MGM_BMS_EXE, path: masaustu/dist/MGM_BMS.exe}
+
+  surum:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [apk, exe]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: {path: dl}
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dl/MGM_BMS_APK/*.apk
+            dl/MGM_BMS_EXE/MGM_BMS.exe
