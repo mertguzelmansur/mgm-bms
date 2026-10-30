@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MGM Lisans">
+<meta name="theme-color" content="#06090f">
+<meta name="robots" content="noindex,nofollow">
+<title>MGM Lisans</title>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{color-scheme:dark;--bg:#06090f;--card:#0f151e;--card2:#151d29;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.13);--text:#eef3f9;--muted:#95a2b4;--dim:#5f6b7c;
+  --accent:#2ee6b5;--accent2:#22c3ee;--red:#fb7185;--amber:#fbbf24;--grad:linear-gradient(135deg,#2ee6b5,#22c3ee);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 var(--font);min-height:100%}
+body{padding-block:calc(var(--st) + 18px) calc(var(--sb) + 28px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:radial-gradient(900px 500px at 85% -10%,rgba(34,195,238,.12),transparent 60%),radial-gradient(700px 500px at -10% 10%,rgba(46,230,181,.10),transparent 60%),var(--bg);background-attachment:fixed}
+.wrap{max-width:560px;margin:0 auto}
+header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(46,230,181,.1);border:1px solid rgba(46,230,181,.28);flex:none}
+.mark svg{width:22px;height:22px}
+h1{font-size:20px;margin:0;letter-spacing:.2px}h1 b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:12.5px;color:var(--muted)}
+header .r{margin-left:auto;display:flex;gap:8px}
+.card{background:linear-gradient(180deg,rgba(21,29,41,.92),rgba(13,19,27,.92));border:1px solid var(--line);border-radius:22px;padding:20px;margin-bottom:14px;box-shadow:0 20px 50px -30px rgba(0,0,0,.9)}
+.card h2{font-size:16.5px;margin:0 0 4px}.card p{margin:0 0 14px;color:var(--muted);font-size:13.5px}
+label{display:block;font-size:11px;letter-spacing:.9px;text-transform:uppercase;font-weight:700;color:var(--dim);margin:16px 0 7px}
+input,textarea{width:100%;border-radius:14px;border:1.5px solid var(--line2);background:rgba(0,0,0,.3);color:var(--text);font:16px var(--font);padding:13px 14px;outline:0;-webkit-appearance:none;appearance:none}
+input:focus,textarea:focus{border-color:var(--accent)}
+textarea{min-height:92px;resize:vertical;font-size:15px}
+.mono{font-family:var(--mono)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;padding:0 18px;border-radius:15px;border:1px solid var(--line2);background:rgba(255,255,255,.05);color:var(--text);font:600 15px var(--font);cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--grad);color:#03231c;border:0;box-shadow:0 12px 30px -12px rgba(46,230,181,.7)}
+.btn.wa{background:#25d366;color:#052e16;border:0}
+.btn.danger{color:var(--red);border-color:rgba(251,113,133,.3);background:rgba(251,113,133,.08)}
+.btn.sm{height:38px;padding:0 13px;font-size:13.5px;border-radius:12px}
+.btn.full{width:100%}
+.btn:disabled{opacity:.45}
+.btn svg{width:18px;height:18px}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{height:36px;padding:0 14px;border-radius:11px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--muted);font:600 13.5px var(--font);cursor:pointer}
+.chip.on{background:rgba(46,230,181,.14);border-color:rgba(46,230,181,.45);color:var(--accent)}
+.found{margin-top:10px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:11px 14px;border-radius:14px;font-size:13.5px}
+.found.ok{background:rgba(46,230,181,.08);border:1px solid rgba(46,230,181,.3)}
+.found.bad{background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.3);color:var(--red)}
+.found b{white-space:nowrap;font:700 16px var(--mono);color:var(--accent);letter-spacing:.5px}
+.err{color:var(--red);font-size:13.5px;min-height:18px;margin-top:10px}
+.key{text-align:center;letter-spacing:3px;white-space:nowrap;font:700 32px/1.5 var(--mono);word-break:break-all;padding:14px;border-radius:14px;background:rgba(0,0,0,.35);border:1px solid rgba(46,230,181,.3);color:var(--text);user-select:all;-webkit-user-select:all}
+.ok-h{display:flex;align-items:center;gap:10px;margin-bottom:12px}.ok-h i{width:30px;height:30px;border-radius:50%;background:rgba(46,230,181,.15);display:grid;place-items:center;color:var(--accent);font-style:normal;font-weight:800}
+.meta{font-size:12.5px;color:var(--muted);margin:10px 0 14px}
+.hist{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto}
+.hi{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);display:flex;gap:10px;align-items:center}
+.hi .t{flex:1;min-width:0}.hi .n{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hi .s{font:11.5px var(--mono);color:var(--dim)}
+.empty{color:var(--dim);font-size:13.5px;text-align:center;padding:18px}
+.toast{position:fixed;left:50%;bottom:calc(var(--sb) + 22px);transform:translateX(-50%) translateY(30px);opacity:0;transition:all .25s;background:#1b2533;border:1px solid var(--line2);padding:12px 18px;border-radius:14px;font-size:14px;font-weight:600;z-index:9;max-width:90vw}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.note{font-size:12px;color:var(--dim);line-height:1.5;margin-top:12px}
+.hide{display:none!important}
+.lockic{width:64px;height:64px;border-radius:20px;margin:6px auto 14px;display:grid;place-items:center;background:rgba(46,230,181,.1);border:1px solid rgba(46,230,181,.3)}
+.center{text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#2ee6b5" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="9" r="5"/><path d="M12 14v8M12 18h3.5M12 21h2.5"/></svg></div>
+    <div><h1><b>MGM</b> Lisans</h1><div class="sub">MGM BMS lisans anahtarı üretici</div></div>
+    <div class="r"><button class="btn sm hide" id="bLock">Kilitle</button></div>
+  </header>
+
+  <section class="card" id="vNoJs">
+    <h2>Bu sayfa önizlemede çalışmaz</h2>
+    <p>iPhone'da <b>Dosyalar</b> uygulaması HTML'i yalnızca önizler, içindeki programı çalıştırmaz. Sayfayı Safari'de bir <b>https://</b> adresinden açın (GitHub Pages ya da size gönderilen bağlantı), sonra Paylaş → <b>Ana Ekrana Ekle</b>.</p>
+  </section>
+
+  <!-- KURULUM (ilk kez) -->
+  <section class="card hide" id="vSetup">
+    <h2>İlk kurulum</h2>
+    <p>Bu cihazda bir kez yapılır. Bilgisayarındaki <b>MGM_Lisans_Uretici\gizli_anahtar.key</b> dosyasının içindeki 64 karakteri yapıştır ve bir parola belirle. Gizli anahtar parolanla şifrelenip <b>yalnızca bu cihazda</b> saklanır; internete gönderilmez.</p>
+    <label>Gizli anahtar (64 karakter)</label>
+    <textarea id="sKey" class="mono" rows="2" placeholder="ör. 3fa1…" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+    <label>Parola (en az 10 karakter)</label>
+    <input id="sP1" type="password" autocomplete="new-password">
+    <label>Parola tekrar</label>
+    <input id="sP2" type="password" autocomplete="new-password">
+    <div class="err" id="sErr"></div>
+    <button class="btn primary full" id="bSetup" style="margin-top:6px">Kaydet ve başla</button>
+    <div class="note">İpucu: iPhone'da Safari → Paylaş → <b>Ana Ekrana Ekle</b>. Ana ekrandan açılan uygulamada saklanan veriler Safari'nin 7 günlük temizliğinden etkilenmez.</div>
+  </section>
+
+  <!-- KİLİT -->
+  <section class="card hide center" id="vLock">
+    <div class="lockic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2ee6b5" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+    <h2>Kilitli</h2>
+    <p>Lisans üretmek için parolanı gir.</p>
+    <input id="lP" type="password" autocomplete="current-password" placeholder="Parola" style="text-align:center">
+    <div class="err" id="lErr"></div>
+    <button class="btn primary full" id="bUnlock" style="margin-top:6px">Kilidi aç</button>
+  </section>
+
+  <!-- ÜRET -->
+  <div class="hide" id="vMain">
+    <section class="card">
+      <h2>Yeni lisans</h2>
+      <div class="chips" id="gKind" style="margin:12px 0 4px">
+        <button class="chip on" data-k="dev">Cihaz lisansı</button><button class="chip" data-k="fab">Fabrika kodu</button>
+      </div>
+      <p id="kindTxt">Müşterinin WhatsApp mesajını olduğu gibi yapıştır — Cihaz Kimliği (MGM-XXXX-XXXX-XXXX-XXXX) içinden bulunur.</p>
+      <div id="devBox">
+      <div class="row"><button class="btn" id="bPaste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/></svg>Panodan yapıştır</button></div>
+      <label>Mesaj / Cihaz Kimliği</label>
+      <textarea id="gMsg" placeholder="Merhaba, cihaz kimliğim: MGM-VFE5-TW7M-BDXK-J442" autocapitalize="off" spellcheck="false"></textarea>
+      <div id="gFound"></div>
+      </div>
+      <label id="nameL">Müşteri adı (kayıt için)</label>
+      <input id="gName" maxlength="40" placeholder="ör. Ahmet Yılmaz – Garaj" autocomplete="off">
+      <label>Süre</label>
+      <div class="chips" id="gExp">
+        <button class="chip on" data-y="0">Süresiz</button><button class="chip" data-y="1">1 yıl</button>
+        <button class="chip" data-y="2">2 yıl</button><button class="chip" data-y="c">Tarih seç</button>
+      </div>
+      <input type="date" id="gDate" class="hide" style="margin-top:10px">
+      <div class="err" id="gErr"></div>
+      <button class="btn primary full" id="bGen" style="margin-top:6px">Lisans anahtarı üret</button>
+    </section>
+
+    <section class="card hide" id="vOut">
+      <div class="ok-h"><i>✓</i><div><h2 style="margin:0">Anahtar hazır</h2><div class="sub" id="oSub"></div></div></div>
+      <div class="key" id="oKey"></div>
+      <div class="meta" id="oMeta"></div>
+      <div class="row">
+        <button class="btn" id="bCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>Kopyala</button>
+        <a class="btn wa" id="bWa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.1z"/></svg>WhatsApp</a>
+      </div>
+      <button class="btn full" id="bNew" style="margin-top:10px">Yeni lisans</button>
+    </section>
+
+    <section class="card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><h2 style="margin:0;flex:1">Verilen lisanslar</h2>
+        <button class="btn sm" id="bCsv">CSV kopyala</button></div>
+      <div class="hist" id="hList"></div>
+      <div class="note">Liste yalnızca bu cihazda tutulur. "CSV kopyala" listeyi panoya alır; Notlar'a ya da Excel'e yapıştırabilirsin.</div>
+    </section>
+
+    <section class="card">
+      <h2>Ayarlar</h2>
+      <div class="row" style="margin-top:12px"><button class="btn" id="bChPw">Parolayı değiştir</button><button class="btn danger" id="bWipe">Bu cihazdan sil</button></div>
+      <div class="hide" id="pwBox">
+        <label for="nP1">Yeni parola (en az 10 karakter)</label><input id="nP1" type="password" autocomplete="new-password">
+        <label for="nP2">Yeni parola tekrar</label><input id="nP2" type="password" autocomplete="new-password">
+        <div class="err" id="pwErr"></div>
+        <div class="row"><button class="btn" id="bPwX">Vazgeç</button><button class="btn primary" id="bPwOk">Kaydet</button></div>
+      </div>
+      <div class="hide" id="wipeBox">
+        <p style="margin:16px 0 12px">Gizli anahtar ve lisans listesi <b>bu cihazdan</b> silinsin mi? Bilgisayardaki gizli_anahtar.key etkilenmez; tekrar kurmak için ona ihtiyacın olur.</p>
+        <div class="row"><button class="btn" id="bWipeX">Vazgeç</button><button class="btn danger" id="bWipeOk">Evet, sil</button></div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* =====================================================================================
+   MGM Lisans – tarayıcıda Ed25519 imzalı lisans anahtarı üretir (MGM BMS lisans.py ile aynı biçim).
+   Sayfa hiçbir gizli bilgi içermez. Gizli anahtar, ilk kurulumda kullanıcının parolasıyla
+   (PBKDF2-SHA256 600.000 tur + AES-GCM) şifrelenip yalnızca bu cihazın tarayıcı deposunda tutulur.
+   ===================================================================================== */
+const PUBLIC_KEY_HEX = "1fc74cf8d65e33d596138f11eed649d83f36350ccde6746b9e2926c8382bbca4";
+const ST_KEY = "mgm_lic_vault_v1", ST_HIST = "mgm_lic_hist_v1";
+const DOMAIN = new TextEncoder().encode("MGMBMS-LIC");
+const $ = s => document.querySelector(s);
+let SEED = null;           // kilit açıkken bellekte (32 bayt)
+let EXP = "0";             // seçili süre
+
+/* ---------------- yardımcılar */
+const hex = b => Array.from(b, x => x.toString(16).padStart(2, "0")).join("");
+const unhex = h => new Uint8Array(h.match(/../g).map(x => parseInt(x, 16)));
+const cat = (...a) => { const o = new Uint8Array(a.reduce((n, x) => n + x.length, 0)); let i = 0; for (const x of a) { o.set(x, i); i += x.length; } return o; };
+const b64 = b => btoa(String.fromCharCode(...b)), unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+function toast(t) { const e = $("#toast"); e.textContent = t; e.classList.add("on"); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove("on"), 2200); }
+function store(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+function load(k) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
+const A32 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+function b32(d) { let o = "", buf = 0, bits = 0; for (const b of d) { buf = (buf << 8) | b; bits += 8; while (bits >= 5) { o += A32[(buf >> (bits - 5)) & 31]; bits -= 5; } buf &= 0xff; } if (bits) o += A32[(buf << (5 - bits)) & 31]; return o; }
+function unb32(s) { const o = []; let buf = 0, bits = 0; for (const c of s) { const v = A32.indexOf(c); if (v < 0) throw new Error("base32"); buf = (buf << 5) | v; bits += 5; if (bits >= 8) { o.push((buf >> (bits - 8)) & 255); bits -= 8; } buf &= 0xffff; } return new Uint8Array(o); }
+
+/* ---------------- Ed25519 (RFC 8032, BigInt) */
+const P = 2n ** 255n - 19n, L = 2n ** 252n + 27742317777372353535851937790883648493n;
+const mod = (a, m = P) => { const r = a % m; return r < 0n ? r + m : r; };
+function pw(b, e, m = P) { let r = 1n; b = mod(b, m); while (e > 0n) { if (e & 1n) r = r * b % m; b = b * b % m; e >>= 1n; } return r; }
+const inv = x => pw(x, P - 2n);
+const D = mod(-121665n * inv(121666n)), I = pw(2n, (P - 1n) / 4n);
+function recX(y, sign) { const x2 = mod((y * y - 1n) * inv(D * y * y + 1n)); if (x2 === 0n) return sign ? null : 0n; let x = pw(x2, (P + 3n) / 8n); if (mod(x * x - x2) !== 0n) x = mod(x * I); if (mod(x * x - x2) !== 0n) return null; if (Number(x & 1n) !== sign) x = P - x; return x; }
+const GY = mod(4n * inv(5n)), GX = recX(GY, 0), G = [GX, GY, 1n, mod(GX * GY)];
+function add(p, q) { const A = mod((p[1] - p[0]) * (q[1] - q[0])), B = mod((p[1] + p[0]) * (q[1] + q[0])), C = mod(p[3] * 2n * D * q[3]), Dd = mod(p[2] * 2n * q[2]);
+  const E = B - A, F = Dd - C, Gg = Dd + C, H = B + A; return [mod(E * F), mod(Gg * H), mod(F * Gg), mod(E * H)]; }
+function mul(s, p) { let q = [0n, 1n, 1n, 0n]; while (s > 0n) { if (s & 1n) q = add(q, p); p = add(p, p); s >>= 1n; } return q; }
+const le2n = b => { let n = 0n; for (let i = b.length - 1; i >= 0; i--) n = (n << 8n) | BigInt(b[i]); return n; };
+const n2le = (n, len = 32) => { const o = new Uint8Array(len); for (let i = 0; i < len; i++) { o[i] = Number(n & 255n); n >>= 8n; } return o; };
+function compress(p) { const zi = inv(p[2]), x = mod(p[0] * zi), y = mod(p[1] * zi); return n2le(y | ((x & 1n) << 255n)); }
+const sha512 = async m => new Uint8Array(await crypto.subtle.digest("SHA-512", m));
+async function expand(seed) { const h = await sha512(seed); const a = h.slice(0, 32); a[0] &= 248; a[31] &= 127; a[31] |= 64; return [le2n(a), h.slice(32)]; }
+async function pubFromSeed(seed) { const [a] = await expand(seed); return compress(mul(a, G)); }
+async function sign(seed, msg) {
+  const [a, prefix] = await expand(seed), A = compress(mul(a, G));
+  const r = mod(le2n(await sha512(cat(prefix, msg))), L), R = compress(mul(r, G));
+  const k = mod(le2n(await sha512(cat(R, A, msg))), L);
+  return cat(R, n2le(mod(r + k * a, L)));
+}
+
+/* ---------------- parola kasası (PBKDF2 + AES-GCM) */
+const ITER = 600000;
+async function deriveKey(pass, salt) {
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({name: "PBKDF2", salt, iterations: ITER, hash: "SHA-256"}, base, {name: "AES-GCM", length: 256}, false, ["encrypt", "decrypt"]);
+}
+async function seal(seed, pass) {
+  const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({name: "AES-GCM", iv}, await deriveKey(pass, salt), seed));
+  return {v: 1, iter: ITER, salt: b64(salt), iv: b64(iv), ct: b64(ct)};
+}
+async function open_(vault, pass) {
+  const key = await deriveKey(pass, unb64(vault.salt));
+  try { return new Uint8Array(await crypto.subtle.decrypt({name: "AES-GCM", iv: unb64(vault.iv)}, key, unb64(vault.ct))); }
+  catch (e) { throw new Error("Parola yanlış"); }
+}
+
+/* ---------------- lisans biçimi (lisans.py ile aynı) */
+const EPOCH = Date.UTC(2024, 0, 1);
+const dayOf = (y, m, d) => Math.round((Date.UTC(y, m, d) - EPOCH) / 86400000);
+const todayDay = () => { const n = new Date(); return dayOf(n.getFullYear(), n.getMonth(), n.getDate()); };
+const dayText = d => { const t = new Date(EPOCH + d * 86400000); return `${String(t.getUTCDate()).padStart(2, "0")}.${String(t.getUTCMonth() + 1).padStart(2, "0")}.${t.getUTCFullYear()}`; };
+function findDevice(text) {
+  const t = text.toUpperCase().replace(/[^A-Z0-9]/g, " ");
+  let m = t.match(/MGM\s*([A-Z2-7]{4})\s*([A-Z2-7]{4})\s*([A-Z2-7]{4})\s*([A-Z2-7]{4})(?![A-Z0-9])/);
+  if (!m) { const c = text.toUpperCase().replace(/[^A-Z0-9]/g, ""); const k = c.indexOf("MGM"); if (k >= 0 && /^[A-Z2-7]{16}$/.test(c.slice(k + 3, k + 19)) && !c.startsWith("MGM1", k)) m = [0, c.slice(k + 3, k + 7), c.slice(k + 7, k + 11), c.slice(k + 11, k + 15), c.slice(k + 15, k + 19)]; }
+  if (!m) return null;
+  const s = m.slice(1, 5).join(""), b = unb32(s);
+  return b.length === 10 ? {bytes: b, text: "MGM-" + m.slice(1, 5).join("-")} : null;
+}
+function nameBytes(name) {           // en fazla 40 bayt, UTF-8 karakter ortasından kesmeden
+  const enc = new TextEncoder(); let out = new Uint8Array(0);
+  for (const ch of name.trim()) { const b = enc.encode(ch); if (out.length + b.length > 40) break; out = cat(out, b); }
+  return out;
+}
+/* 8 karakter "XXXX-XXXX" (lisans.py make_key8 ile aynı): MAC(4) | ay XOR SHA256(MAC)[0]
+   ay: 0 süresiz, aksi halde bitiş ayı (1 = Ocak 2024); o ayın son gününe kadar geçerli. dev = null → fabrika kodu */
+const monthOfDay = d => { const t = new Date(EPOCH + d * 86400000); return (t.getUTCFullYear() - 2024) * 12 + t.getUTCMonth() + 1; };
+const monthEndDay = m => dayOf(2024 + Math.floor(m / 12), m % 12, 1) - 1;   // sonraki ayın 1'inden bir gün önce
+async function makeKey(dev, expDay) {
+  const enc = new TextEncoder();
+  const m = expDay ? monthOfDay(expDay) : 0;
+  if (m > 255) throw new Error("Bitiş tarihi en geç Mart 2045 olabilir");
+  const hk = new Uint8Array(await crypto.subtle.digest("SHA-256", cat(enc.encode("MGMBMS-SHORT-KEY|"), SEED)));
+  const key = await crypto.subtle.importKey("raw", hk, {name: "HMAC", hash: "SHA-256"}, false, ["sign"]);
+  const mac = new Uint8Array(await crypto.subtle.sign("HMAC", key, cat(enc.encode("MGMBMS-K8"), new Uint8Array([dev ? 1 : 2, m]), dev || new Uint8Array(0)))).slice(0, 4);
+  const w = new Uint8Array(await crypto.subtle.digest("SHA-256", mac));
+  const s = b32(cat(mac, new Uint8Array([m ^ w[0]])));
+  return {key: s.slice(0, 4) + "-" + s.slice(4), expText: m ? dayText(monthEndDay(m)) : "süresiz"};
+}
+let KIND = "dev";
+for (const c of document.querySelectorAll("#gKind .chip")) c.onclick = () => {
+  KIND = c.dataset.k; document.querySelectorAll("#gKind .chip").forEach(x => x.classList.toggle("on", x === c));
+  $("#devBox").classList.toggle("hide", KIND === "fab");
+  $("#kindTxt").textContent = KIND === "fab" ? "Fabrika kodu her bilgisayarda ve telefonda, sınırsız sayıda kurulumda çalışır. Kimseyle paylaşılmaması gereken kişilere verme; gerekirse süre koy."
+    : "Müşterinin WhatsApp mesajını olduğu gibi yapıştır — Cihaz Kimliği (MGM-XXXX-XXXX-XXXX-XXXX) içinden bulunur.";
+  $("#nameL").textContent = KIND === "fab" ? "Firma adı (kayıt için)" : "Müşteri adı (kayıt için)";
+  $("#gErr").textContent = "";
+};
+
+/* ---------------- ekranlar */
+function show(v) { $("#vNoJs").classList.add("hide"); for (const id of ["vSetup", "vLock", "vMain"]) $("#" + id).classList.toggle("hide", id !== v); $("#bLock").classList.toggle("hide", v !== "vMain"); }
+function route() { if (!load(ST_KEY)) show("vSetup"); else if (!SEED) { show("vLock"); setTimeout(() => $("#lP").focus(), 50); } else { show("vMain"); renderHist(); } }
+
+$("#bSetup").onclick = async () => {
+  const err = $("#sErr"); err.textContent = "";
+  const h = $("#sKey").value.trim().toLowerCase().replace(/[^0-9a-f]/g, ""), p1 = $("#sP1").value, p2 = $("#sP2").value;
+  if (h.length !== 64) return err.textContent = `Gizli anahtar 64 karakter olmalı (şu an ${h.length})`;
+  if (p1.length < 10) return err.textContent = "Parola en az 10 karakter olmalı";
+  if (p1 !== p2) return err.textContent = "Parolalar aynı değil";
+  const btn = $("#bSetup"); btn.disabled = true; btn.textContent = "Hazırlanıyor…";
+  try {
+    const seed = unhex(h);
+    if (hex(await pubFromSeed(seed)) !== PUBLIC_KEY_HEX) throw new Error("Bu gizli anahtar MGM BMS'in açık anahtarıyla eşleşmiyor – yanlış dosya mı?");
+    if (!store(ST_KEY, await seal(seed, p1))) throw new Error("Tarayıcı deposuna yazılamadı (gizli sekme mi?)");
+    SEED = seed; $("#sKey").value = $("#sP1").value = $("#sP2").value = ""; toast("Kurulum tamam ✓"); route();
+  } catch (e) { err.textContent = e.message; }
+  btn.disabled = false; btn.textContent = "Kaydet ve başla";
+};
+async function unlock() {
+  const err = $("#lErr"), btn = $("#bUnlock"); err.textContent = ""; btn.disabled = true; btn.textContent = "Açılıyor…";
+  try {
+    const seed = await open_(load(ST_KEY), $("#lP").value);
+    if (hex(await pubFromSeed(seed)) !== PUBLIC_KEY_HEX) throw new Error("Kasadaki anahtar geçersiz");
+    SEED = seed; $("#lP").value = ""; route();
+  } catch (e) { err.textContent = e.message; }
+  btn.disabled = false; btn.textContent = "Kilidi aç";
+}
+$("#bUnlock").onclick = unlock;
+$("#lP").onkeydown = e => { if (e.key === "Enter") { e.preventDefault(); unlock(); } };
+$("#bLock").onclick = () => { SEED = null; $("#vOut").classList.add("hide"); route(); };
+document.addEventListener("visibilitychange", () => {            // 10 dk arka planda kalırsa kilitle
+  if (document.hidden) window._hid = Date.now(); else if (SEED && window._hid && Date.now() - window._hid > 600000) { SEED = null; route(); }
+});
+
+/* ---------------- üretim */
+function refreshFound() {
+  const v = $("#gMsg").value, f = $("#gFound"), d = findDevice(v);
+  if (!v.trim()) { f.innerHTML = ""; return null; }
+  f.innerHTML = d ? `<div class="found ok">Cihaz Kimliği bulundu: <b>${d.text}</b></div>` : `<div class="found bad">Mesajda Cihaz Kimliği bulunamadı (MGM-XXXX-XXXX-XXXX-XXXX)</div>`;
+  if (d && !$("#gName").value) {                                  // mesajdaki ilk satırdan ad önerisi yok – kullanıcı yazar
+  }
+  return d;
+}
+$("#gMsg").oninput = refreshFound;
+$("#bPaste").onclick = async () => {
+  try { const t = await navigator.clipboard.readText(); $("#gMsg").value = t; refreshFound(); if (findDevice(t)) $("#gName").focus(); }
+  catch (e) { $("#gMsg").focus(); toast("Kutuya uzun basıp Yapıştır'ı seçin"); }
+};
+for (const c of document.querySelectorAll("#gExp .chip")) c.onclick = () => {
+  EXP = c.dataset.y; document.querySelectorAll("#gExp .chip").forEach(x => x.classList.toggle("on", x === c));
+  $("#gDate").classList.toggle("hide", EXP !== "c");
+  if (EXP === "c" && !$("#gDate").value) { const d = new Date(); d.setFullYear(d.getFullYear() + 1); $("#gDate").value = d.toISOString().slice(0, 10); }
+};
+function expDay() {
+  if (EXP === "0") return 0;
+  const n = new Date();
+  if (EXP === "c") { const v = $("#gDate").value; if (!v) throw new Error("Bitiş tarihi seçin"); const [y, m, d] = v.split("-").map(Number); const k = dayOf(y, m - 1, d); if (k <= todayDay()) throw new Error("Bitiş tarihi bugünden sonra olmalı"); return k; }
+  return dayOf(n.getFullYear() + Number(EXP), n.getMonth(), n.getDate());
+}
+let LAST = null;
+$("#bGen").onclick = async () => {
+  const err = $("#gErr"); err.textContent = "";
+  try {
+    if (!SEED) throw new Error("Kilitli");
+    const fab = KIND === "fab", d = fab ? null : findDevice($("#gMsg").value);
+    if (!fab && !d) throw new Error("Önce müşterinin Cihaz Kimliğini yapıştırın");
+    const name = $("#gName").value.trim(); if (!name) throw new Error(fab ? "Firma adını yazın" : "Müşteri adını yazın");
+    const ed = expDay();
+    const btn = $("#bGen"); btn.disabled = true; btn.textContent = "İmzalanıyor…";
+    const r = await makeKey(d ? d.bytes : null, ed), key = r.key;
+    btn.disabled = false; btn.textContent = "Lisans anahtarı üret";
+    LAST = {date: new Date().toISOString(), name, device: d ? d.text : "FABRİKA KODU", exp: r.expText, key};
+    const h = load(ST_HIST) || []; h.unshift(LAST); store(ST_HIST, h.slice(0, 500));
+    $("#oKey").textContent = key; $("#oSub").textContent = name;
+    $("#oMeta").innerHTML = (fab ? `<b>Fabrika kodu</b> – her cihazda çalışır` : `Cihaz: <span class="mono">${d.text}</span>`) + ` · Bitiş: ${LAST.exp}`;
+    $("#bWa").href = "https://wa.me/?text=" + encodeURIComponent(`MGM BMS ${fab ? "fabrika kodunuz" : "lisans anahtarınız"}:\n\n${key}\n\nProgramdaki "Lisans anahtarı veya fabrika kodu" kutusuna yazıp Etkinleştir'e basın.`);
+    $("#vOut").classList.remove("hide"); $("#vOut").scrollIntoView({behavior: "smooth", block: "start"});
+    renderHist();
+  } catch (e) { err.textContent = e.message; $("#bGen").disabled = false; $("#bGen").textContent = "Lisans anahtarı üret"; }
+};
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); return true; } catch (e) {
+    const ta = document.createElement("textarea"); ta.value = t; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, t.length); const ok = document.execCommand("copy"); ta.remove(); return ok; }
+}
+$("#bCopy").onclick = async () => toast(await copyText(LAST.key) ? "Anahtar kopyalandı ✓" : "Kopyalanamadı – anahtara uzun basın");
+$("#bNew").onclick = () => { $("#gMsg").value = ""; $("#gName").value = ""; $("#gFound").innerHTML = ""; $("#vOut").classList.add("hide"); window.scrollTo({top: 0, behavior: "smooth"}); };
+
+/* ---------------- geçmiş */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+function renderHist() {
+  const h = load(ST_HIST) || [], el = $("#hList");
+  el.innerHTML = h.length ? h.map((r, i) => `<div class="hi"><div class="t"><div class="n">${esc(r.name)}</div><div class="s">${esc(r.device)} · ${new Date(r.date).toLocaleDateString("tr-TR")} · ${esc(r.exp)}</div></div><button class="btn sm" data-i="${i}">Kopyala</button></div>`).join("")
+    : `<div class="empty">Henüz lisans üretilmedi</div>`;
+  for (const b of el.querySelectorAll("[data-i]")) b.onclick = async () => toast(await copyText(h[+b.dataset.i].key) ? "Anahtar kopyalandı ✓" : "Kopyalanamadı");
+}
+$("#bCsv").onclick = async () => {
+  const h = load(ST_HIST) || []; if (!h.length) return toast("Liste boş");
+  const q = v => `"${String(v).replace(/"/g, '""')}"`;
+  const csv = "\ufeff" + [["tarih", "musteri", "cihaz_kimligi", "bitis", "anahtar"].join(";"), ...h.map(r => [new Date(r.date).toLocaleString("tr-TR"), r.name, r.device, r.exp, r.key].map(q).join(";"))].join("\r\n");
+  toast(await copyText(csv.slice(1)) ? `${h.length} satır CSV panoya kopyalandı ✓` : "Kopyalanamadı");
+};
+
+/* ---------------- ayarlar */
+const box = (id) => { for (const b of ["#pwBox", "#wipeBox"]) $(b).classList.toggle("hide", b !== id); };
+$("#bChPw").onclick = () => { box("#pwBox"); $("#nP1").focus(); };
+$("#bPwX").onclick = () => { box(null); $("#nP1").value = $("#nP2").value = ""; };
+$("#bPwOk").onclick = async () => {
+  const p1 = $("#nP1").value, err = $("#pwErr"); err.textContent = "";
+  if (p1.length < 10) return err.textContent = "Parola en az 10 karakter olmalı";
+  if ($("#nP2").value !== p1) return err.textContent = "Parolalar aynı değil";
+  $("#bPwOk").disabled = true; store(ST_KEY, await seal(SEED, p1)); $("#bPwOk").disabled = false;
+  $("#nP1").value = $("#nP2").value = ""; box(null); toast("Parola değiştirildi ✓");
+};
+$("#bWipe").onclick = () => box("#wipeBox");
+$("#bWipeX").onclick = () => box(null);
+$("#bWipeOk").onclick = () => { store(ST_KEY, null); store(ST_HIST, null); SEED = null; box(null); toast("Silindi"); route(); };
+
+if (!window.isSecureContext || !(window.crypto && crypto.subtle)) { $("#vNoJs h2").textContent = "Güvenli bağlantı gerekli"; }
+else route();
+</script>
+</body>
+</html>
